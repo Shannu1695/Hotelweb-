@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaldan Samudhra Palace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./stylesheet.css">
+    <style>
+        /* Additional styles can be added here */
+        .feedback-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .ratingandreview_page{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:center;
+        }
+        .feedback-button-container{
+            justify-self: flex-start;
+        }
+        .review{
+            background-color: aliceblue;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+        #feedback-form{
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: aliceblue;
+        }
+        
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("feedback-button").addEventListener("click", function() {
+                document.getElementById("feedback-form").style.display = "flex";
+            });
+        
+            document.getElementById("review-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const name = document.getElementById("usr_name").value;
+                const rating = document.getElementById("rating").value;
+                const feedback = document.getElementById("feedback").value;
+        
+                if (rating && feedback) {
+                    const reviewDiv = document.createElement("div");
+                    reviewDiv.classList.add("review");
+        
+                    const reviewerName = name; // You can modify this to display the name of the user submitting the review
+                    const reviewContent = `
+                        <h3>${reviewerName}</h3>
+                        <p>${feedback}</p>
+                        <div class="rating">Rating: ${rating} stars</div>
+                    `;
+        
+                    reviewDiv.innerHTML = reviewContent;
+        
+                    const reviewsContainer = document.querySelector(".randr_page");
+                    reviewsContainer.insertBefore(reviewDiv, reviewsContainer.firstChild);
+        
+                    // Clear the form
+                    document.getElementById("rating").value = "5"; // Reset to default rating
+                    document.getElementById("feedback").value = "";
+        
+                    // Hide the feedback form
+                    document.getElementById("feedback-form").style.display = "none";
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="main_home">
+    <video id="video-background" autoplay loop muted>
+        <source src="./vid_1.mp4" type="video/mp4">
+        <!-- Add more source elements for different video formats if needed -->
+        Your browser does not support the video tag.
+    </video>
+    <div class="nav_home">
+        <div id="htl_name">
+            <a href="./home.html"><img src="https://www.kaldanhotels.com/images/logo.png" alt="logo"></a>
+        </div>
+        <div id="nav_bar_home">
+            <a href="./menu_h.htm"><button id="menu">Menu</button></a>
+            <a href="./order.htm"><button id="order">Order</button></a>
+            <a href="./specialoffers.htm"><button id="spl_ofr">Special Offers</button></a>
+            <a href="./newsletter.htm"><button id="nwsltr">Newsletter</button></a>
+            <a href="./about.htm"><button id="about">About</button></a>
+            <a href="./index.html"><button id="login">Logout</button></a>
+        </div>
+    </div>
+    <div class="ratingandreview_page">
+        <div class="feedback-button-container">
+            <button id="feedback-button">Give Feedback</button>
+        </div>
+        <h2>Reviews and Ratings</h2>
+        <div class="randr_page">
+            <div id="feedback-form" style="display: none;">
+                <h2>Give Your Feedback</h2>
+                <form id="review-form">
+                    <label for="usr_name">Name:</label>
+                    <input id="usr_name" type="text">
+                    <label for="rating">Rating:</label>
+                    <select id="rating" name="rating">
+                        <option value="5">5 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="2">2 stars</option>
+                        <option value="1">1 star</option>
+                    </select>
+                    <br>
+                    <label for="feedback">Feedback:</label><br>
+                    <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea>
+                    <br>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="review_container">
+                <div class="review">
+                    <h3>Rajesh Khanna</h3>
+                    <p>This place is amazing! The ambiance, the food, and the service are top-notch.</p>
+                    <div class="rating">Rating: 5 stars</div>
+                </div>
+                <div class="review">
+                    <h3>Priya Patel</h3>
+                    <p>Had a wonderful dining experience here. The staff was friendly and the dishes were exquisite.</p>
+                    <div class="rating">Rating: 4 stars</div>
+                </div>
+                <div class="review">
+                    <h3>Vikram Singh</h3>
+                    <p>Authentic flavors and a cozy atmosphere. A perfect place for family gatherings.</p>
+                    <div class="rating">Rating: 5 stars</div>
+                </div>
+                <div class="review">
+                    <h3>Sneha Verma</h3>
+                    <p>Impressive menu and courteous staff. Will definitely visit again!</p>
+                    <div class="rating">Rating: 4 stars</div>
+                </div>
+                <div class="review">
+                    <h3>Aniket Desai</h3>
+                    <p>Great place for celebrations. The live music added to the charm of the evening.</p>
+                    <div class="rating">Rating: 4 stars</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
