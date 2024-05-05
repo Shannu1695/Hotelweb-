@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaldan Samudhra Palace - Reservations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./stylesheet.css">
+    <style>
+        /* Add your custom CSS styling for the reservation page here */
+        .reservation_page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .room-reservation, .table-reservation {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #f7f7f7;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .room-reservation input, .table-reservation input, .room-reservation select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .room-reservation button, .table-reservation button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 5px;
+        }
+
+        .room-reservation button:hover, .table-reservation button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const roomReservationForm = document.getElementById("room-reservation-form");
+            const tableReservationForm = document.getElementById("table-reservation-form");
+            const roomReservationButton = document.getElementById("room-reservation-button");
+            const tableReservationButton = document.getElementById("table-reservation-button");
+
+            roomReservationButton.addEventListener("click", function() {
+                roomReservationForm.style.display = "flex";
+                tableReservationForm.style.display = "none";
+            });
+
+            tableReservationButton.addEventListener("click", function() {
+                roomReservationForm.style.display = "none";
+                tableReservationForm.style.display = "flex";
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="main_home">
+        <video id="video-background" autoplay loop muted>
+            <source src="./vid_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="nav_home">
+            <div id="htl_name">
+                <a href="./home.html"><img src="https://www.kaldanhotels.com/images/logo.png" alt="logo"></a>
+            </div>
+            <div id="nav_bar_home">
+                <a href="./menu_h.htm"><button id="menu">Menu</button></a>
+                <a href="./order.htm"><button id="order">Order</button></a>
+                <a href="./specialoffers.htm"><button id="spl_ofr">Special Offers</button></a>
+                <a href="./newsletter.htm"><button id="nwsltr">Newsletter</button></a>
+                <a href="./about.htm"><button id="about">About</button></a>
+                <a href="./index.html"><button id="login">Logout</button></a>
+            </div>
+        </div>
+        <div class="reservation_page">
+            <h2>Make a Reservation</h2>
+            <div>
+                <button id="room-reservation-button">Room Reservation</button>
+                <button id="table-reservation-button">Table Reservation</button>
+            </div>
+            <div class="room-reservation" id="room-reservation-form" style="display:none;">
+                <h3>Room Reservation</h3>
+                <form id="room-reservation-form" action="reserv_roomJSP.jsp">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br>
+
+                    <label for="guests">Number of Guests:</label>
+                    <input type="number" id="guests" name="guests" min="1" max="3" required><br>
+
+                    <label for="room-type">Room Type:</label>
+                    <select id="room-type" name="room-type" required>
+                        <option value="deluxe-twin">Deluxe Twin</option>
+                        <option value="deluxe-king">Deluxe King</option>
+                        <option value="premium-king">Premium King</option>
+                    </select><br>
+
+                    <label for="rooms">Number of Rooms:</label>
+                    <input type="number" id="rooms" name="rooms" min="1" required><br>
+
+                    <label for="check-in">Check-in Date:</label>
+                    <input type="date" id="check-in" name="check-in" required><br>
+
+                    <label for="check-out">Check-out Date:</label>
+                    <input type="date" id="check-out" name="check-out" required><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="table-reservation" id="table-reservation-form">
+                <h3>Table Reservation</h3>
+                <form id="table-reservation-form" action="reserv_tableJSP.jsp">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br>
+
+                    <label for="guests">Number of Guests:</label>
+                    <input type="number" id="guests" name="guests" min="1" required><br>
+
+                    <label for="date">Preferred Date:</label>
+                    <input type="date" id="date" name="date" required><br>
+
+                    <label for="time">Preferred Time:</label>
+                    <select id="time" name="time" required>
+                        <option value="morning">Morning</option>
+                        <option value="forenoon">Forenoon</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="night">Night</option>
+                    </select><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
