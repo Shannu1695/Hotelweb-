@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaldan Samudhra Palace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./stylesheet.css">
+    <style>
+        /* Your existing styles here */
+        .order-form {
+            width: max-content;
+            background-color: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .order-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .order-form input[type="text"],
+        .order-form input[type="tel"],
+        .order-form select {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .order-form select {
+            height: 40px;
+        }
+
+        .order-items {
+            margin-top: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .order-item .item-name {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .order-item input.quantity {
+            width: 60px;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+        }
+
+        .order-item .price,
+        .order-item .total-item-price {
+            width: 80px;
+            text-align: center;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #FF9900;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #FFB733;
+        }
+    </style>
+    <script>
+        const food_ItemPrices = {
+            "samosa": 30,
+            "pakora": 25,
+            "tandoori-chicken": 150,
+            "aloo-tikki": 40,
+            "pani-puri": 20,
+            "butter-chicken": 180,
+            "palak-paneer": 120,
+            "rajma-masala": 100,
+            "chicken-biryani": 200,
+            "punjabi-chole": 90,
+            "gulab-jamun": 40,
+            "kheer": 50,
+            "rasgulla": 35,
+            "jalebi": 30,
+            "kaju-katli": 60,
+            "mango-lassi": 45,
+            "masala-chai": 20,
+            "thandai": 30,
+            "nimbu-pani": 15,
+            "badam-milk": 40,
+            // Add more food items and their prices here
+        };
+
+        let orderList = [];
+        let totalCost = 0;
+
+        function addFood() {
+            const foodSelect = document.getElementById("food");
+            const selectedFood = foodSelect.value;
+            const quantity = parseInt(document.getElementById("quantity").value);
+
+            if (selectedFood && quantity > 0) {
+                // Add multiple items based on quantity
+                for (let i = 0; i < quantity; i++) {
+                    orderList.push(selectedFood);
+                    totalCost += food_ItemPrices[selectedFood];
+                }
+
+                updateFoodList();
+                updateTotalCost(); // Update the total cost when adding food
+                updateSelectedFoodItems(); // Update the selected food items in the hidden input field
+            }
+        }
+
+        function removeFood(index) {
+            const removedFood = orderList.splice(index, 1)[0];
+            totalCost -= food_ItemPrices[removedFood];
+
+            updateFoodList();
+            updateTotalCost(); // Update the total cost when removing food
+            updateSelectedFoodItems(); // Update the selected food items in the hidden input field
+        }
+
+        function updateFoodList() {
+            const foodListDiv = document.getElementById("food-list");
+            foodListDiv.innerHTML = "";
+
+            orderList.forEach((food, index) => {
+                const foodItemDiv = document.createElement("div");
+                foodItemDiv.textContent = food + " - $" + food_ItemPrices[food];
+
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "Remove";
+                removeButton.onclick = () => removeFood(index);
+
+                foodItemDiv.appendChild(removeButton);
+                foodListDiv.appendChild(foodItemDiv);
+            });
+        }
+
+        function updateTotalCost() {
+            const totalCostInput = document.getElementById("total-cost");
+            const displayTotalCost = document.getElementById("display-total-cost");
+            totalCostInput.value = totalCost.toFixed(2); // Update the hidden input field
+            displayTotalCost.textContent = totalCost.toFixed(2); // Update the displayed total cost
+        }
+
+        function handleOrderType(orderType) {
+            const addressField = document.getElementById("address");
+
+            if (orderType === "takeaway") {
+                addressField.value = "";
+                addressField.disabled = true;
+            } else if (orderType === "delivery") {
+                addressField.disabled = false;
+            }
+        }
+
+        function updateSelectedFoodItems() {
+            const selectedFoodItemsInput = document.getElementById("selected-food-items");
+            selectedFoodItemsInput.value = orderList.join(", ");
+        }
+    </script>
+</head>
+<body>
+<div class="main_home">
+    <video id="video-background" autoplay loop muted>
+        <source src="./vid_1.mp4" type="video/mp4">
+        <!-- Add more source elements for different video formats if needed -->
+        Your browser does not support the video tag.
+    </video>
+    <div class="nav_home">
+        <div id="htl_name">
+            <a href="./homw.html"><img src="https://www.kaldanhotels.com/images/logo.png" alt="logo"></a>
+        </div>
+        <div id="nav_bar_home">
+            <a href="./menu_h.htm"><button id="menu">Menu</button></a>
+            <a href="./home.html"><button id="home">Home</button></a>
+            <a href="./specialoffers.htm"><button id="spl_ofr">Special Offers</button></a>
+            <a href="./newsletter.htm"><button id="nwsltr">Newsletter</button></a>
+            <a href="./about.htm"><button id="about">About</button></a>
+            <a href="./index.html"><button id="login">Logout</button></a>
+        </div>
+    </div>
+    <div class="h_page">
+        <div class="order-form">
+            <form id="order-form" action="orderJSP.jsp" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="order-type">Order Type:</label>
+                <input type="radio" name="order-type" value="takeaway" id="takeaway"
+                       onclick="handleOrderType(this.value)"> Takeaway
+                <input type="radio" name="order-type" value="delivery" id="delivery"
+                       onclick="handleOrderType(this.value)"> Delivery
+                <br><br>
+
+                <label for="address">Delivery Address:</label>
+                <input type="text" id="address" name="address" required disabled><br><br>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required><br><br>
+
+                <label for="food">Select Food:</label>
+                <select id="food" name="food">
+                    <option value="samosa">Samosa</option>
+                    <option value="pakora">Pakora</option>
+                    <option value="tandoori-chicken">Tandoori Chicken</option>
+                    <option value="aloo-tikki">Aloo Tikki</option>
+                    <option value="pani-puri">Pani Puri</option>
+                    <option value="butter-chicken">Butter Chicken</option>
+                    <option value="palak-paneer">Palak Paneer</option>
+                    <option value="rajma-masala">Rajma Masala</option>
+                    <option value="chicken-biryani">Chicken Biryani</option>
+                    <option value="punjabi-chole">Punjabi Chole</option>
+                    <option value="gulab-jamun">Gulab Jamun</option>
+                    <option value="kheer">Kheer</option>
+                    <option value="rasgulla">Rasgulla</option>
+                    <option value="jalebi">Jalebi</option>
+                    <option value="kaju-katli">Kaju Katli</option>
+                    <option value="mango-lassi">Mango Lassi</option>
+                    <option value="masala-chai">Masala Chai</option>
+                    <option value="thandai">Thandai</option>
+                    <option value="nimbu-pani">Nimbu Pani</option>
+                    <option value="badam-milk">Badam Milk</option>
+                </select>
+                <br><br>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1"><br><br>
+
+                <button type="button" onclick="addFood()">Add Food</button><br><br>
+
+                <div id="food-list">
+                    <!-- Added food items will be displayed here -->
+                </div>
+
+                <input type="text" id="selected-food-items" name="selected-food-items" style="display: none;">
+
+                <!-- Hidden input field for total cost -->
+                <input type="hidden" id="total-cost" name="total-cost" value="0.00">
+                
+                <!-- Displayed total cost -->
+                <label for="total-cost">Total Cost: $<span id="display-total-cost">0.00</span></label>
+
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
