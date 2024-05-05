@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .main {
+            width: 400px;
+            background-color:paleturquoise ;
+            border-radius: 20px;
+            display: flex;
+            border: 2px solid black;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-evenly;
+            font-size: 17px;
+            padding: 8px;
+            background-color:powderblue ;
+            border-radius: 19px 19px 0px 0px;
+        }
+        .tabs > button {
+            background-color: rgb(237, 237, 252);
+            padding: 20px 70px;
+            font-size: 17px;
+            border: none;
+        }
+        .tabs button.active {
+            background-color: rgb(220, 220, 245);
+        }
+        #Login {
+            display: flex;
+            width: 400px;
+            align-items: center;
+            justify-content: center;
+        }
+        #Register {
+            align-items: center;
+            justify-content: center;
+        }
+        .tab_content {
+            display: none;
+        }
+        .rs {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        input[type=reset] {
+            padding: 15px 30px;
+            margin-right: 5px;
+            color: white;
+            border: none;
+            background-color: black;
+        }
+        input[type=reset]:hover {
+            background-color: rgb(190, 26, 26);
+            transition: 0.3s;
+        }
+        input[type=submit] {
+            padding: 15px 30px;
+            margin-left: 5px;
+            color: white;
+            border: none;
+            background-color: black;
+        }
+        input[type=submit]:hover {
+            background-color: rgb(21, 126, 21);
+            transition: 0.3s;
+        }
+        input[type=text], input[type=email], input[type=tel], input[type=password] {
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .invalid_field {
+            background-color: rgb(255, 166, 166);
+        }
+        .valid_field {
+            background-color: rgb(127, 255, 142);
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit:fill;
+            z-index: -1;
+        }
+        #video-background{
+            -o-filter: blur(15px);
+            filter: blur(15px);
+        }
+    </style>
+    <script>
+        function display(evt, f) {
+            var tc = document.getElementsByClassName("tab_content");
+            for (var i = 0; i < tc.length; i++) {
+                tc[i].style.display = "none";
+            }
+            var th = document.getElementsByClassName("tab_head");
+            for (var i = 0; i < th.length; i++) {
+                th[i].className = th[i].className.replace(" active", "");
+            }
+            document.getElementById(f).style.display = "flex";
+            evt.currentTarget.className += " active";
+        }
+
+        function clearForm() {
+            var inputs = document.getElementsByClassName("inp");
+            var errorMessages = document.getElementsByClassName("error-message");
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = "";
+                inputs[i].classList.remove("invalid_field");
+                inputs[i].classList.remove("valid_field");
+            }
+
+            for (var i = 0; i < errorMessages.length; i++) {
+                errorMessages[i].innerHTML = "";
+            }
+        }
+ 
+        function usr_l_name() {
+            var name = document.getElementById("usr_l");
+            var usernameRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\/\-]*[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\/\-][a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\/\-]*$/;
+            if (!usernameRegex.test(name.value)) {
+                name.classList.add("invalid_field");
+                name.classList.remove("valid_field");
+                document.getElementById("usr_l-error").innerHTML = "Username can contain letters, digits, and special symbols, but not start or end with a space";
+            } else {
+                name.classList.remove("invalid_field");
+                name.classList.add("valid_field");
+                document.getElementById("usr_l-error").innerHTML = "";
+            }
+        }
+        function usr_r_name() {
+            var name = document.getElementById("usr_r");
+            var usernameRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\/\-]*[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\/\-][a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\/\-]*$/;
+            if (!usernameRegex.test(name.value)) {
+                name.classList.add("invalid_field");
+                name.classList.remove("valid_field");
+                document.getElementById("usr_r-error").innerHTML = "Username can contain letters, digits, and special symbols, but not start or end with a space";
+            } else {
+                name.classList.remove("invalid_field");
+                name.classList.add("valid_field");
+                document.getElementById("usr_r-error").innerHTML = "";
+            }
+        }
+        
+        function fname() {
+            var fullName = document.getElementById("full_name");
+            var nameRegex = /^([A-Za-z]+ ?)+$/;
+            if (!nameRegex.test(fullName.value)) {
+                fullName.classList.add("invalid_field");
+                fullName.classList.remove("valid_field");
+                document.getElementById("name-error").innerHTML = "Full Name should only contain letters";
+            }
+            else{
+                fullName.classList.remove("invalid_field");
+                fullName.classList.add("valid_field");
+                document.getElementById("name-error").innerHTML = "";
+            }
+        }
+        
+
+        function phno() {
+            var phoneNo = document.getElementById('contact');
+            var ph_pat = /^\s?[0-9]{10}$/;
+            if (!(ph_pat.test(phoneNo.value))) {
+                phoneNo.classList.add("invalid_field");
+                phoneNo.classList.remove("valid_field");
+                document.getElementById("phno-error").innerHTML = "Please enter a valid phone number";
+            } else {
+                phoneNo.classList.add("valid_field");
+                phoneNo.classList.remove("invalid_field");
+                document.getElementById("phno-error").innerHTML = "";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <video id="video-background" autoplay loop muted>
+            <source src="./vid_1.mp4" type="video/mp4">
+            <!-- Add more source elements for different video formats if needed -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="tabs">
+            <button id="b1" class="tab_head active" onclick="display(event,'Login')">Login</button>
+            <button id="b2" class="tab_head" onclick="display(event,'Register')">Register</button>
+        </div>
+        <div id="Login" class="tab_content">
+            <form action="loginJSP.jsp">
+                <div>
+                    <input type="text" class="inp" id="usr_l" name="usr_l" placeholder="Username" oninput="usr_l_name()" required>
+                </div>
+                <div>
+                    <span class="error-message" id="usr_l-error"></span>
+                </div>
+                <div>
+                    <input type="password" class="inp" id="pwd_l" name="pwd_l" placeholder="Password" required>
+                </div>
+                <div class="rs">
+                    <input type="reset" onclick="clearForm()">
+                    <input type="submit" value="Login">
+                </div>
+            </form>
+        </div>
+        <div id="Register" class="tab_content">
+            <form action="registerJSP.jsp">
+                <div>
+                    <input type="text" id="full_name" class="inp" name="full_name" placeholder="Full Name" oninput="fname()" required>
+                </div>
+                <div>
+                    <span class="error-message" id="name-error"></span>
+                </div>
+                <div>
+                    <input type="text" id="usr_r" class="inp" name="usr_r" placeholder="Username" required oninput="usr_r_name()">
+                </div>
+                <div>
+                    <span class="error-message" id="usr_r-error"></span>
+                </div>
+                <div>
+                    <input type="password" id="pwd_r" class="inp" name="pwd_r" placeholder="Password" required>
+                </div>
+                <div>
+                    <input type="tel" id="contact" class="inp" name="contact" placeholder="Phone Number" required oninput="phno()">
+                </div>
+                <div>
+                    <span class="error-message" id="phno-error"></span>
+                </div>
+                <div class="rs">
+                    <input type="reset" onclick="clearForm()">
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+ 
